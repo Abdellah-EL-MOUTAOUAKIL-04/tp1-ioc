@@ -1,15 +1,20 @@
 package metier;
 
 import dao.IDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+@Service("metier")
 public class IMetierImpl implements IMetier {
     //Couplage faible
+    //l'annotation autowired n'est pas conseiller d'utiliser car il viole le principe de l'encapsulation en accedant directement à la variable pour l'initialiser
+    //il est conseiller d'utiliser le constructeur pour initialiser la variable
+    //@Autowired
     private IDao dao;
 
-    public IMetierImpl() {
-    }
-
-    public IMetierImpl(IDao dao) {
+    public IMetierImpl(@Qualifier("dao") IDao dao) {
         this.dao = dao;
     }
 
